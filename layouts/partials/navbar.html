@@ -14,7 +14,7 @@
 {{- $pagelink := page.RelPermalink -}}
 {{ $parts := split $pagelink "/" }}
 {{- $version := "" -}}
-{{- /* Extract version from path: /docs/envoy/latest/... or /docs/agentgateway/latest/... */ -}}
+{{- /* Extract version from path: /docs/envoy/latest/... or /docs/agentgateway/latest/... or /docs/ingress2gateway/latest/... */ -}}
 {{- if and (ge (len $parts) 4) (eq (index $parts 1) "docs") -}}
   {{- $version = index $parts 3 -}}
 {{- end -}}
@@ -28,6 +28,12 @@
 {{- /* Increase logo size for kgateway envoy section to accommodate two-line logo */ -}}
 {{- if eq $subSection "envoy" -}}
   {{- $logoHeight = "50" -}}
+{{- end -}}
+
+{{- /* Slightly larger icon for ingress2gateway */ -}}
+{{- if eq $subSection "ingress2gateway" -}}
+  {{- $logoHeight = "32" -}}
+  {{- $logoWidth = "32" -}}
 {{- end -}}
 
 {{- /* Increase logo size for agentgateway section to accommodate two-line logo */ -}}
@@ -54,6 +60,9 @@
   {{- if $logoResource -}}
     {{- $useResource = true -}}
   {{- end -}}
+{{- else if eq $subSection "ingress2gateway" -}}
+  {{- $logoPath = "img/kubernetes-icon-black.png" -}}
+  {{- $logoDarkPath = "img/kubernetes-icon-black.png" -}}
 {{- end -}}
 
 <style>
@@ -158,8 +167,21 @@
     flex-shrink: 0 !important; /* Prevent flexbox from shrinking the logo */
   }
   
+  /* Ingress2Gateway logo sizing */
+  .nav-container a img.ingress2gateway-logo {
+    height: 32px !important;
+    max-height: 32px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Invert the black icon in dark mode (same PNG used for both) */
+  .dark .nav-container a img.ingress2gateway-logo {
+    filter: invert(1);
+  }
+
   .nav-container a:has(img.agentgateway-logo),
-  .nav-container a:has(img.envoy-logo) {
+  .nav-container a:has(img.envoy-logo),
+  .nav-container a:has(img.ingress2gateway-logo) {
     flex-shrink: 0 !important;
     min-width: fit-content !important;
   }
@@ -179,8 +201,8 @@
             <img class="hx-hidden dark:hx-block {{ if eq $subSection "agentgateway" }}agentgateway-logo{{ else if eq $subSection "envoy" }}envoy-logo{{ end }}" src="{{ $logoResource.RelPermalink }}" alt="{{ .Site.Title }}" height="{{ $logoHeight }}" width="{{ $logoWidth }}" />
           {{- end -}}
         {{- else -}}
-          <img class="hx-block dark:hx-hidden" src="{{ $logoPath | relURL }}" alt="{{ .Site.Title }}" height="{{ $logoHeight }}" width="{{ $logoWidth }}" />
-          <img class="hx-hidden dark:hx-block" src="{{ $logoDarkPath | relURL }}" alt="{{ .Site.Title }}" height="{{ $logoHeight }}" width="{{ $logoWidth }}" />
+          <img class="hx-block dark:hx-hidden {{ if eq $subSection "ingress2gateway" }}ingress2gateway-logo{{ end }}" src="{{ $logoPath | relURL }}" alt="{{ .Site.Title }}" height="{{ $logoHeight }}" width="{{ $logoWidth }}" />
+          <img class="hx-hidden dark:hx-block {{ if eq $subSection "ingress2gateway" }}ingress2gateway-logo{{ end }}" src="{{ $logoDarkPath | relURL }}" alt="{{ .Site.Title }}" height="{{ $logoHeight }}" width="{{ $logoWidth }}" />
         {{- end -}}
       {{- end }}
       {{- if (.Site.Params.navbar.displayTitle | default true) }}
@@ -250,6 +272,7 @@
             <div class="dropdown-content navbar-dropdown-content">
               <a href="/docs/envoy/latest" class="hx-block hx-px-4 hx-py-3 hx-text-sm hx-text-gray-700 dark:hx-text-gray-300 hover:hx-bg-gray-100">Kgateway (Envoy)</a>
               <a href="/docs/agentgateway/latest" class="hx-block hx-px-4 hx-py-3 hx-text-sm hx-text-gray-700 dark:hx-text-gray-300 hover:hx-bg-gray-100">Agentgateway</a>
+              <a href="/docs/ingress2gateway/latest" class="hx-block hx-px-4 hx-py-3 hx-text-sm hx-text-gray-700 dark:hx-text-gray-300 hover:hx-bg-gray-100">Ingress2Gateway</a>
             </div>
           </div>
         {{/* Display icon menu item */}}

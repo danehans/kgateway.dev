@@ -46,6 +46,13 @@ excludeSearch: true
         </div>
         <p class="text-primary-text text-center px-4 md:min-h-24">Federate Model Context Protocol tool services and secure A2A comms with a single scalable endpoint.</p>
       </a>
+      <a href="/docs/ingress2gateway" class="flex md:flex-col items-start bg-card-bg px-4 py-[3.75rem] gap-[1.6875rem] md:gap-[3.125rem] w-full md:w-[17.875rem] min-h-[7.4375rem] md:min-h-[25rem] flex-wrap justify-center rounded-xl">
+        <div class="flex flex-row md:flex-col gap-8 justify-center items-center">
+          <img src="/feature-api-gateway.svg" />
+          <h3 class="font-semibold text-[1.25rem] md:text-[1.5625rem] leading-[1.71875rem] text-primary-text font-heading text-center min-h-16">A tool for converting Ingress resources to Gateway API resources.</h3>
+        </div>
+        <p class="text-primary-text text-center px-4 md:min-h-24">A tool for converting Ingress resources to Gateway API resources.</p>
+      </a>
     </div>
   </div>  
 </section>
